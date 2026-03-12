@@ -18,7 +18,7 @@ pub fn build(b: *std.Build) void {
         }),
     });
     exe.setLinkerScript(b.path("linker.ld"));
-    exe.entry = .{ .symbol_name = "vector_table" };
+    exe.entry = .{ .symbol_name = "resetHandler" };
 
     b.installArtifact(exe);
 }
