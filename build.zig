@@ -3,8 +3,9 @@ const std = @import("std");
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{
         .default_target = .{
-            .cpu_arch = .arm,
+            .cpu_arch = .thumb,
             .os_tag = .freestanding,
+            .cpu_model = .{ .explicit = &std.Target.arm.cpu.cortex_m33 },
         },
     });
 
@@ -18,7 +19,7 @@ pub fn build(b: *std.Build) void {
         }),
     });
     exe.setLinkerScript(b.path("linker.ld"));
-    exe.entry = .{ .symbol_name = "resetHandler" };
+    exe.entry = .{ .symbol_name = "vector_table" };
 
     b.installArtifact(exe);
 }

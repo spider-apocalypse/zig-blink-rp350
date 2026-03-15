@@ -4,12 +4,18 @@ MEMORY
     RAM   (rwx) : ORIGIN = 0x20000000, LENGTH = 520K
 }
 
+__stack_top = ORIGIN(RAM) + LENGTH(RAM);
+
 SECTIONS
 {
-    .vector_table :
-    {
-        KEEP(*(.vector_table))
-    } > FLASH
+
+	.vector_table : {
+        *(.vector_table)
+	} > FLASH
+
+	.boot_block : {
+			KEEP(*(.boot_block))
+	} > FLASH
 
     .text :
     {
@@ -22,11 +28,4 @@ SECTIONS
         *(.data*)
     } > RAM AT>FLASH
 
-    .bss :
-    {
-        *(.bss*)
-        *(COMMON)
-    } > RAM
-
-		__stack_top = ORIGIN(RAM) + LENGTH(RAM);
 }
