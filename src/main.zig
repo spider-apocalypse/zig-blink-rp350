@@ -13,7 +13,7 @@ export const boot_block linksection(".boot_block") = [5]u32{
     0xAB123579,
 };
 
-export fn resetHandler() callconv(.c) void {
+export fn resetHandler() void {
     main();
 
     while (true) {}
@@ -32,7 +32,9 @@ const GPIO25_CTRL: *volatile u32 = @ptrFromInt(IO_BANK0_BASE + 0x0CC);
 
 fn delay() void {
     var i: u32 = 0;
-    while (i < 5_000_000) : (i += 1) {}
+    while (i < 5_000_000) : (i += 1) {
+        asm volatile ("" ::: .{ .memory = true });
+    }
 }
 
 export fn main() noreturn {

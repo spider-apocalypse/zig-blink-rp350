@@ -5,7 +5,6 @@ MEMORY
 }
 
 __stack_top = ORIGIN(RAM) + LENGTH(RAM);
-
 SECTIONS
 {
 
